@@ -9,7 +9,8 @@ class ErlangAT22 < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "openssl@1.1"
+  # We now use locally built-from-source openssl 1.1.1w
+  # depends_on "openssl@1.1"
   depends_on "wxmac" # for GUI apps like observer
 
   uses_from_macos "m4" => :build
@@ -45,10 +46,11 @@ class ErlangAT22 < Formula
       --enable-smp-support
       --enable-threads
       --enable-wx
-      --with-ssl=#{Formula["openssl@1.1"].opt_prefix}
+      --with-ssl=/usr/local/openssl
       --without-javac
       --enable-darwin-64bit
     ]
+    # --with-ssl=#{Formula["openssl@1.1"].opt_prefix}
 
     args << "--enable-kernel-poll" if MacOS.version > :el_capitan
     args << "--with-dynamic-trace=dtrace" if MacOS::CLT.installed?
